@@ -89,7 +89,11 @@ def load_logged_in_user():
     g.current_user = current_user
 
 def getVideoByCategory(category):
-    return list(query.Video.link for query in db.session.query(Category, Video).filter(LinkVideoCategory.category_name == Category.name, LinkVideoCategory.video_link == Video.link, Category.name == category).all())
+    return list(query.Video.link for query in
+            db.session.query(Category, Video)
+            .filter(LinkVideoCategory.category_name == Category.name,
+                    LinkVideoCategory.video_link == Video.link,
+                    Category.name == category).all())
 
 @app.route('/index.html')
 def index():

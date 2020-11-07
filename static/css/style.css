@@ -5,6 +5,18 @@
 * License: https://bootstrapmade.com/license/
 */
 
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+   filter: invert(100%);
+}
+
+.carousel-control-prev{
+ left:-100px;
+}
+
+.carousel-control-next{
+ right: -100px;
+}
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
