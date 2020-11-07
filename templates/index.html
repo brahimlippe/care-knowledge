@@ -75,13 +75,13 @@
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="https://docspace.in/images/banner/1604655717_5fa51a656e40abanner-img.png" class="d-block" alt="...">
+              <img src="/static/img/image1.png" class="d-block" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="https://docspace.in/images/banner/1604473013_5fa250b51be7cbanner-img.png" class="d-block" alt="...">
+              <img src="/static/img/image2.png" class="d-block" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="https://docspace.in/images/banner/1602743832_5f87ee181893abanner-img.png" class="d-block" alt="...">
+              <img src="/static/img/image3.png" class="d-block" alt="...">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -100,8 +100,8 @@
   <section id="hero" class="d-flex align-items-center">
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
       {% for category, videos in categories.items() %}
-      <h3 class="h3"> {{ category }} </h3>
-      <div id="carousel{{ category }}" class="carousel slide container" data-ride="carousel">
+      <h3 class="h3 mt-4"> {{ category }} </h3>
+      <div id="carousel{{ category }}" class="mb-4 carousel slide container" data-ride="carousel">
         <div class="carousel-inner">
           {% for i in range(0, videos|length, 4) %}
           <div class="carousel-item {% if i == 0 %}active{% endif %} row">
