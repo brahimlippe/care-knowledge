@@ -131,7 +131,6 @@ def register(id):
     return "Registration page"
 
 @app.route('/register.html', methods=['GET', 'POST'])
-@login_required
 def admin():
     if request.method == 'POST':
         db.session.add(User(name=request.form.get('name'), password=generate_password_hash(request.form.get('password'), 10),
@@ -144,7 +143,7 @@ def admin():
         #message = "Cliquer sur le lien pour vous enregistrer dans la plateforme de Amel Ben Brahim\r\n" + link
         #send_mail(form.email.data, "Email d'enregistrement au service en ligne d'Amel Ben Brahim",
         #          message)
-    return render_template('admin.html', files = files, form = form)
+    return render_template('register.html')
 
 def send_mail(receiver, subject, body):
     app.logger.info("Instantiating SMTP server")
