@@ -31,8 +31,8 @@ class Video(db.Model):
         return '<Video %r>' % self.link
 class LinkVideoCategory(db.Model):
     __tablename__ = 'link'
-    category_name = db.Column(db.Integer, db.ForeignKey('category.name'), primary_key = True)
-    video_link = db.Column(db.Integer, db.ForeignKey('video.link'), primary_key = True)
+    category_name = db.Column(db.String, db.ForeignKey('category.name'), primary_key = True)
+    video_link = db.Column(db.String, db.ForeignKey('video.link'), primary_key = True)
 
 class User(db.Model):
     """A user capable of viewing reports.
