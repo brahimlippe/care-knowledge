@@ -16,8 +16,7 @@ mail = Mail()
 mail.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///./database.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 class Category(db.Model):
@@ -121,21 +120,19 @@ def logout():
 def login():
     if request.method == "POST":
         user = User.query.get(request.form.get('email'))
-        app.logger.info("TRYING TO LOG")
         if user and check_password_hash(user.password, request.form.get('password')):
             user.authenticated = True
             db.session.add(user)
             db.session.commit()
             login_user(user, remember=True)
-            app.logger.info("LOGGED IN")
             return redirect(url_for("default"))
         else:
             return render_template('/login.html')
     return render_template('/login.html')
 
-@app.route('/register.html/<id>')
-def register(id):
-    return "Registration page"
+#@app.route('/register.html/<id>')
+#def register(id):
+#    return "Registration page"
 
 @app.route('/register.html', methods=['GET', 'POST'])
 def admin():
