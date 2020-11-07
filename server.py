@@ -56,7 +56,7 @@ class User(db.Model):
 
     def get_id(self):
         """Return the name address to satisfy Flask-Login's requirements."""
-        return self.name
+        return self.email
 
     def is_authenticated(self):
         """Return True if the user is authenticated."""
@@ -92,7 +92,7 @@ def getVideoByCategory(category):
     return list(query.Video.link for query in db.session.query(Category, Video).filter(LinkVideoCategory.category_name == Category.name, LinkVideoCategory.video_link == Video.link, Category.name == category).all())
 
 @app.route('/index.html')
-def inedx():
+def index():
     return redirect(url_for('default'))
 @app.route('/')
 def default():
@@ -111,20 +111,23 @@ def logout():
     db.session.add(user)
     db.session.commit()
     logout_user()
-    return render_template("/index.html")
+    return redirect(url_for('default'))
 
-@app.route('/login.html', methods=['POST'])
+@app.route('/login.html', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
-        user = User.query.get(request.form.get('username'))
-        if user and check_password_hash(user.password, form.password.data):
+        user = User.query.get(request.form.get('email'))
+        app.logger.info("TRYING TO LOG")
+        if user and check_password_hash(user.password, request.form.get('password')):
             user.authenticated = True
             db.session.add(user)
             db.session.commit()
             login_user(user, remember=True)
-            if user.admin: return redirect(url_for("admin"))
+            app.logger.info("LOGGED IN")
             return redirect(url_for("default"))
-    return render_template('/login.html', form=form)
+        else:
+            return render_template('/login.html')
+    return render_template('/login.html')
 
 @app.route('/register.html/<id>')
 def register(id):
@@ -133,9 +136,10 @@ def register(id):
 @app.route('/register.html', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
-        db.session.add(User(name=request.form.get('name'), password=generate_password_hash(request.form.get('password'), 10),
-            admin=False, email='brahim.pro@protonmail.com'))
+        db.session.add(User(name=request.form.get('first_name'), password=generate_password_hash(request.form.get('password'), 10),
+            admin=False, email=request.form.get('email')))
         db.session.commit()
+        return redirect(url_for('default'))
         #register_request = RegisterRequests(email=request.form.get('email').data)
         #db.session.add(register_request)
         #db.session.commit()
