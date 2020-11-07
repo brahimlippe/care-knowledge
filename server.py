@@ -16,7 +16,8 @@ mail = Mail()
 mail.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.sqlite'
 db = SQLAlchemy(app)
 
 class Category(db.Model):
