@@ -107,7 +107,7 @@ def default():
     return render_template("index.html", categories=m)
 
 @app.route("/logout.html", methods=["GET"])
-@login_required
+#@login_required
 def logout():
     """Logout the current user."""
     user = current_user
