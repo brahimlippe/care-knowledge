@@ -76,9 +76,6 @@ class User(db.Model):
 #                             nullable=False, default=datetime.now())
 
 db.create_all()
-if User.query.filter_by(admin=True).first() == None:
-    db.session.add(User(name='admin', password=generate_password_hash('secret', 10),
-                        admin=True, email='brahim.pro@protonmail.com'))
 
 @login_manager.user_loader
 def load_user(user_id):
