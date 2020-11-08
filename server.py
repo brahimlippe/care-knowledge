@@ -135,6 +135,9 @@ def login():
 @app.route('/register.html', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
+        if request.form.get('password') != request.form.get('password_confirmation'):
+            flash('Password confirmation Wrong', 'danger')
+            return render_template('register.html')
         db.session.add(User(name=request.form.get('first_name'), password=generate_password_hash(request.form.get('password'), 10),
             admin=False, email=request.form.get('email')))
         db.session.commit()
